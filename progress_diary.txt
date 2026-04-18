@@ -1,0 +1,8 @@
+Todo list basically
+Things in brackets are planned
+
+1. Initial set up and making ripple effect
+2. Improved ripple effect and made a function to autp click
+3. Added self promo links w icons
+4. Add the spaces for "Currently listening to"
+5. [Add failsafe for if the viewport/screen is too big, dont draw the dots cuz lag], [Find a better color for the 2nd section in homepage]

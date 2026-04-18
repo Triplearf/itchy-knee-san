@@ -1,65 +1,113 @@
-import Image from "next/image";
+import Navbar from '../components/Navbar'
+import Image from 'next/image'
+import InteractiveBackground from '../components/InteractiveBackground'
+import facebook from '../public/facebook.svg'
+import instagram from '../public/instagram.svg'
+import github from '../public/github.svg'
 
-export default function Home() {
+import { getRecentTracks } from '@/lib/lastfm'
+import SpotifyWidget from '@/components/SpotifyWidget'
+
+export default async function Page() {
+  const recentTrack = await getRecentTracks();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main>
+      {/* Section 1 */}
+      <InteractiveBackground></InteractiveBackground>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-12">
+        <div className='shadow-hard-br5 shadow-taupe-800 select-none bg-[#ffffff] px-11 py-6 border-2 border-deep-mocha-900'>
+          {/* Name drop */}
+          <h1 className='text-9xl text-deep-mocha-900 text-shadow-hard-br4 shadow-[#E5C684] tracking-wider font-bold'>
+            arf
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    
+          {/* Short description */}
+          <p className='text-1xl text-deep-mocha-900 flex gap-2.5 justify-center shadow-amber-50'>
+            <span className='transition hover:scale-110'>He/Any</span>
+            <span>|</span>
+            <span className='transition hover:scale-110'>19</span>
+            <span>|</span>
+            <span className='transition hover:scale-110'>Trying</span>
+          </p>
+
+          {/* Self-promo links w icons */}
+          <div className='flex justify-center grid-cols-3 gap-5 pt-6'>
+            <a href='https://www.facebook.com/arfarf.37910' target='_blank' rel="noopener noreferrer">
+              <Image src={facebook} alt='Facebook' width={20} height={20}
+              className='transition hover:scale-125'></Image>
+            </a>
+            <a href='https://www.instagram.com/barkbarkwoof70/' target='_blank' rel="noopener noreferrer">
+              <Image src={instagram} alt='Facebook' width={20} height={20}
+              className='transition hover:scale-125'></Image>
+            </a>
+            <a href='https://github.com/Triplearf' target='_blank' rel="noopener noreferrer">
+              <Image src={github} alt='Facebook' width={20} height={20}
+              className='transition hover:scale-125'></Image>
+            </a>
+          </div>
+        </div>
+
+        {/* Listening to */}
+        <div className='grid grid-cols-2 gap-x-11 min-w-[50vw] shadow-hard-br5 shadow-taupe-800 select-none bg-[#ffffff] px-11 pt-8 pb-6 border-2 border-deep-mocha-900'>
+          <div className='flex items-center col-span-2 pb-4'>
+            <h2 className='text-3xl text-deep-mocha-900 text-shadow-hard-br4 shadow-[#E5C684] tracking-wider font-bold'>
+              Now Listening To:
+            </h2>
+          </div>
+
+          {/* <div className='flex items-center col-span-2 pb-4'>
+            <SpotifyWidget track={recentTrack}></SpotifyWidget>
+          </div> */}
+          
+          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684]"> 
+            <iframe 
+              data-testid="embed-iframe" 
+              src="https://open.spotify.com/embed/track/0IjdXwCEhZR7JIwq6Za8j5?utm_source=generator&theme=0"
+              className="w-full"
+              height="152" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684]"> 
+            <iframe 
+              data-testid="embed-iframe" 
+              src="https://open.spotify.com/embed/track/11zLS4m2YVm0iy2uCGqEq5?utm_source=generator&theme=0" 
+              className="w-full"
+              height="152" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      {/* Section 2 */}
+      <div className='border-t-2 border-deep-mocha-800 h-[75vh] bg-soft-fawn-50'>
+        <div className='min-h-full flex justify-center items-center'>
+          <p>
+            Todo list basically <br></br>
+            Things in brackets are planned <br></br>
+            <br></br>
+
+            1. Initial set up and making ripple effect
+            <br></br>
+            2. Improved ripple effect and made a function to autp click
+            <br></br>
+            3. Added self promo links w icons
+            <br></br>
+            4. Add the spaces for "Currently listening to"
+            <br></br>
+            5. [Add failsafe for if the viewport/screen is too big, dont draw the dots cuz lag], [Find a better color for the 2nd section in homepage]
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </div>
+
+      {/* Section 3 */}
+      <div className='border-t-2 border-[#868686] min-h-screen'>
+      </div>
+    </main>
+  )
 }

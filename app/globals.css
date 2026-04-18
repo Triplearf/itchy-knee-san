@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFF8ED;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
+
+  /* custom shadows */
+  --shadow-hard-br5: 5px 5px 0px 0px var(--tw-shadow-color, black);
+  --shadow-hard-br7: 7px 7px 0px 0px var(--tw-shadow-color, black);
+
+  /* color palette */
+  --color-deep-mocha-50: #f4f2f0;
+  --color-deep-mocha-100: #eae5e1;
+  --color-deep-mocha-200: #d5cbc3;
+  --color-deep-mocha-300: #c0b1a5;
+  --color-deep-mocha-400: #aa9788;
+  --color-deep-mocha-500: #957d6a;
+  --color-deep-mocha-600: #776455;
+  --color-deep-mocha-700: #5a4b3f;
+  --color-deep-mocha-800: #3c322a;
+  --color-deep-mocha-900: #1e1915;
+  --color-deep-mocha-950: #15110f;
+
+  --color-taupe-50: #f4f2f0;
+  --color-taupe-100: #e9e5e2;
+  --color-taupe-200: #d4cbc4;
+  --color-taupe-300: #beb1a7;
+  --color-taupe-400: #a8968a;
+  --color-taupe-500: #937c6c;
+  --color-taupe-600: #756357;
+  --color-taupe-700: #584b41;
+  --color-taupe-800: #3b322b;
+  --color-taupe-900: #1d1916;
+  --color-taupe-950: #15110f;
+
+  --color-grey-olive-50: #f4f2f1;
+  --color-grey-olive-100: #e8e6e3;
+  --color-grey-olive-200: #d1cdc7;
+  --color-grey-olive-300: #bab4ab;
+  --color-grey-olive-400: #a39a8f;
+  --color-grey-olive-500: #8c8173;
+  --color-grey-olive-600: #70675c;
+  --color-grey-olive-700: #544e45;
+  --color-grey-olive-800: #38342e;
+  --color-grey-olive-900: #1c1a17;
+  --color-grey-olive-950: #141210;
+
+  --color-soft-fawn-50: #fbf5ea;
+  --color-soft-fawn-100: #f6ecd5;
+  --color-soft-fawn-200: #edd8ab;
+  --color-soft-fawn-300: #e4c581;
+  --color-soft-fawn-400: #dbb157;
+  --color-soft-fawn-500: #d29e2d;
+  --color-soft-fawn-600: #a87e24;
+  --color-soft-fawn-700: #7e5f1b;
+  --color-soft-fawn-800: #543f12;
+  --color-soft-fawn-900: #2a2009;
+  --color-soft-fawn-950: #1d1606;
+
+  --color-floral-white-50: #fff5e5;
+  --color-floral-white-100: #ffebcc;
+  --color-floral-white-200: #ffd899;
+  --color-floral-white-300: #ffc466;
+  --color-floral-white-400: #ffb133;
+  --color-floral-white-500: #ff9d00;
+  --color-floral-white-600: #cc7e00;
+  --color-floral-white-700: #995e00;
+  --color-floral-white-800: #663f00;
+  --color-floral-white-900: #331f00;
+  --color-floral-white-950: #241600;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility text-shadow-hard-br4 {
+  text-shadow: 0.04em 0.04em 0px var(--tw-shadow-color, black);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
 }
