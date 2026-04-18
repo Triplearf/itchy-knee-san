@@ -60,7 +60,7 @@ export default async function Page() {
             <SpotifyWidget track={recentTrack}></SpotifyWidget>
           </div> */}
           
-          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684]"> 
+          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
             <iframe 
               data-testid="embed-iframe" 
               src="https://open.spotify.com/embed/track/0IjdXwCEhZR7JIwq6Za8j5?utm_source=generator&theme=0"
@@ -71,7 +71,7 @@ export default async function Page() {
             ></iframe>
           </div>
 
-          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684]"> 
+          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
             <iframe 
               data-testid="embed-iframe" 
               src="https://open.spotify.com/embed/track/11zLS4m2YVm0iy2uCGqEq5?utm_source=generator&theme=0" 
