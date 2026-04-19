@@ -8,6 +8,8 @@ import github from '../public/github.svg'
 import { getRecentTracks } from '@/lib/lastfm'
 import SpotifyWidget from '@/components/SpotifyWidget'
 
+import DrawingWidget from '@/components/DrawingWidget'
+
 export default async function Page() {
   const recentTrack = await getRecentTracks();
 
@@ -16,7 +18,7 @@ export default async function Page() {
       {/* Section 1 */}
       <InteractiveBackground></InteractiveBackground>
       <div className="min-h-screen flex flex-col items-center justify-center gap-12">
-        <div className='shadow-hard-br5 shadow-taupe-800 select-none bg-[#ffffff] px-11 py-6 border-2 border-deep-mocha-900'>
+        <div className='shadow-hard-br5 shadow-taupe-800 select-none bg-[#faf8f5] px-11 py-6 border-2 border-deep-mocha-900'>
           {/* Name drop */}
           <h1 className='text-9xl text-deep-mocha-900 text-shadow-hard-br4 shadow-[#E5C684] tracking-wider font-bold'>
             arf
@@ -49,7 +51,7 @@ export default async function Page() {
         </div>
 
         {/* Listening to */}
-        <div className='grid grid-cols-2 gap-x-11 min-w-[50vw] shadow-hard-br5 shadow-taupe-800 select-none bg-[#ffffff] px-11 pt-8 pb-6 border-2 border-deep-mocha-900'>
+        <div className='grid grid-cols-2 gap-x-11 min-w-[50vw] shadow-hard-br5 shadow-taupe-800 select-none bg-[#faf8f5] px-11 pt-8 pb-6 border-2 border-deep-mocha-900'>
           <div className='flex items-center col-span-2 pb-4'>
             <h2 className='text-3xl text-deep-mocha-900 text-shadow-hard-br4 shadow-[#E5C684] tracking-wider font-bold'>
               Now Listening To:
@@ -60,7 +62,7 @@ export default async function Page() {
             <SpotifyWidget track={recentTrack}></SpotifyWidget>
           </div> */}
           
-          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
+          <div className="bg-[#1E1E1E] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
             <iframe 
               data-testid="embed-iframe" 
               src="https://open.spotify.com/embed/track/0IjdXwCEhZR7JIwq6Za8j5?utm_source=generator&theme=0"
@@ -71,7 +73,7 @@ export default async function Page() {
             ></iframe>
           </div>
 
-          <div className="bg-[#121212] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
+          <div className="bg-[#1E1E1E] w-full flex shadow-hard-br5 shadow-[#E5C684] px-0.5"> 
             <iframe 
               data-testid="embed-iframe" 
               src="https://open.spotify.com/embed/track/11zLS4m2YVm0iy2uCGqEq5?utm_source=generator&theme=0" 
@@ -85,8 +87,8 @@ export default async function Page() {
       </div>
 
       {/* Section 2 */}
-      <div className='border-t-2 border-deep-mocha-800 h-[75vh] bg-soft-fawn-50'>
-        <div className='min-h-full flex justify-center items-center'>
+      <div className='border-t-2 border-deep-mocha-800 h-[75vh] bg-[#faf8f5] flex items-center justify-center select-none'>
+        <div className='select-text'>
           <p>
             Todo list basically <br></br>
             Things in brackets are planned <br></br>
@@ -107,6 +109,7 @@ export default async function Page() {
 
       {/* Section 3 */}
       <div className='border-t-2 border-[#868686] min-h-screen'>
+        <DrawingWidget></DrawingWidget>
       </div>
     </main>
   )
