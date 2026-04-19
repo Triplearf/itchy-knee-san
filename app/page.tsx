@@ -6,7 +6,6 @@ import instagram from '../public/instagram.svg'
 import github from '../public/github.svg'
 
 import { getRecentTracks } from '@/lib/lastfm'
-import SpotifyWidget from '@/components/SpotifyWidget'
 
 import DrawingWidget from '@/components/DrawingWidget'
 

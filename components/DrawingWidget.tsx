@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 
 type Point = { x: number, y: number}
-type StrokeData = { points: Point[], width: number}
+type StrokeData = { points: Point[], width: number, color: string}
 
 export default function DrawingWidget() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,10 +12,15 @@ export default function DrawingWidget() {
     // Master list of strokes
     const [strokes, setStrokes] = useState<StrokeData[]>([]);
 
-    const [lineWidth, setLineWidth] = useState(5);
+    // Default values
+    const defaultLineWidth = 5
+    const defaultLineColor = '#000000'
+
+    const [lineWidth, setLineWidth] = useState(defaultLineWidth);
+    const [lineColor, setLineColor] = useState(defaultLineColor);
 
     // Current stroke to be pushed to master strokes
-    const currentStroke = useRef<StrokeData>({ points: [], width: 5 });
+    const currentStroke = useRef<StrokeData>({ points: [], width: defaultLineWidth, color: defaultLineColor });
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -23,12 +28,17 @@ export default function DrawingWidget() {
         const ctx = canvas.getContext('2d');
 
         if (!ctx) return;
+
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = lineWidth;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
         setContext(ctx);
-    }, [lineWidth, context]);
+    }, [lineWidth, lineColor, context]);
 
     const startDrawing = ( ( e: React.MouseEvent ) => {
         if (!context) return;
@@ -37,10 +47,12 @@ export default function DrawingWidget() {
         const yPos = e.nativeEvent.offsetY;
 
         const strokeWidth = lineWidth
+        const strokeColor = lineColor
 
         currentStroke.current = {
             points: [{ x: xPos, y: yPos }],
-            width: strokeWidth
+            width: strokeWidth,
+            color: strokeColor
         };
 
         context.beginPath();
@@ -66,12 +78,13 @@ export default function DrawingWidget() {
         if (currentStroke.current.points.length > 0) {
             const strokeToSave: StrokeData = {
                 points: [...currentStroke.current.points], // Hard copy the points
-                width: currentStroke.current.width         // Copy the width
+                width: currentStroke.current.width,         // Copy the width
+                color: currentStroke.current.color
             };
             setStrokes((prevStrokes) => [...prevStrokes, strokeToSave]);
         }
         
-        currentStroke.current = { points: [], width: 10 };
+        currentStroke.current = { points: [], width: lineWidth, color: lineColor };
         setIsDrawing(false);
 
         console.log(strokes)
@@ -80,13 +93,15 @@ export default function DrawingWidget() {
     const redrawCanvasFromStrokes = ( strokesToDraw : StrokeData[] ) => {
         if (!context || !canvasRef.current) return;
 
-        context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
         strokesToDraw.forEach(stroke => {
             if (stroke.points.length === 0) return;
 
             context.beginPath();
             context.lineWidth = stroke.width;
+            context.strokeStyle = stroke.color;
             context.moveTo(stroke.points[0].x, stroke.points[0].y)
 
             for (let i = 1; i < stroke.points.length; i++) {
@@ -98,7 +113,10 @@ export default function DrawingWidget() {
 
     const clear = ( e: React.MouseEvent ) => {
         if (!context || !canvasRef.current) return;
-        context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        
         setStrokes([]);
         console.log(strokes);
     };
@@ -111,6 +129,46 @@ export default function DrawingWidget() {
         redrawCanvasFromStrokes(updatedStrokes);
         console.log(strokes);
     };
+
+    const submit = async () => {
+        if (!canvasRef.current) return;
+
+        canvasRef.current.toBlob(async (blob) => {
+            if (!blob) {
+                console.error("Canvas is empty");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", blob, "new_doodle.png"); 
+            formData.append("content", new Date().toString()); 
+
+            try {
+                const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
+
+                if (!webhookUrl) {
+                    console.log("Missing webHookUrl");
+                    return;
+                }
+
+                const response = await fetch(webhookUrl, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    console.log("Doodle sent to Discord!");
+                    alert("Thank you kind fella");
+                    // Optional: Add erasing of canvas
+                    
+                } else {
+                    console.error("Failed to send doodle");
+                }
+            } catch (error) {
+                console.error("Network error:", error);
+            }
+        }, 'image/png'); 
+    }
 
     return (
     <div className="flex justify-center pt-6">
@@ -166,6 +224,31 @@ export default function DrawingWidget() {
             width={500}
             height={500}
             />
+
+            <input
+                type="color"
+                defaultValue={defaultLineColor}
+                onChange={(e) => setLineColor(e.target.value)}
+                style={{ backgroundColor: lineColor }}
+                className="
+                rounded-bl-lg col-span-2 w-full cursor-pointer
+                border-2 border-deep-mocha-900 shadow-hard-br5 shadow-taupe-800
+                p-0 bg-transparent
+                [&::-webkit-color-swatch-wrapper]:p-0
+                [&::-webkit-color-swatch]:border-none
+                [&::-moz-color-swatch]:border-none
+            ">
+            </input>
+
+            <button
+                onClick={submit}
+                className="
+                rounded-br-lg
+                flex items-center justify-center cursor-pointer transition 
+                hover:scale-110 select-none
+                border-2 border-deep-mocha-900 shadow-hard-br5 shadow-taupe-800 bg-amber-100">
+                    Submit
+            </button>
         </div>
     </div>
 
