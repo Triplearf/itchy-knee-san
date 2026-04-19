@@ -86,7 +86,7 @@ export default async function Page() {
       </div>
 
       {/* Section 2 */}
-      <div className='border-t-2 border-deep-mocha-800 h-[75vh] bg-[#faf8f5] flex items-center justify-center select-none'>
+      <div className='border-t-2 border-deep-mocha-800 min-h-screen bg-[#faf8f5] flex items-center justify-center select-none'>
         <div className='select-text'>
           <DrawingWidget></DrawingWidget>
         </div>
