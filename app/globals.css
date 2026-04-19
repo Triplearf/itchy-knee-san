@@ -5,6 +5,16 @@
   --foreground: #ffffff;
 }
 
+/* Remove scrollbar */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
