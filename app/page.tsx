@@ -88,27 +88,13 @@ export default async function Page() {
       {/* Section 2 */}
       <div className='border-t-2 border-deep-mocha-800 h-[75vh] bg-[#faf8f5] flex items-center justify-center select-none'>
         <div className='select-text'>
-          <p>
-            Todo list basically <br></br>
-            Things in brackets are planned <br></br>
-            <br></br>
-
-            1. Initial set up and making ripple effect
-            <br></br>
-            2. Improved ripple effect and made a function to autp click
-            <br></br>
-            3. Added self promo links w icons
-            <br></br>
-            4. Add the spaces for "Currently listening to"
-            <br></br>
-            5. [Add failsafe for if the viewport/screen is too big, dont draw the dots cuz lag], [Find a better color for the 2nd section in homepage]
-          </p>
+          <DrawingWidget></DrawingWidget>
         </div>
       </div>
 
       {/* Section 3 */}
       <div className='border-t-2 border-[#868686] min-h-screen'>
-        <DrawingWidget></DrawingWidget>
+        
       </div>
     </main>
   )
